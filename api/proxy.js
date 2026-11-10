@@ -1,7 +1,9 @@
 export default async function handler(req, res) {
   const SUPABASE_URL = "https://vvysbwracbpydlthjbec.supabase.co";
   
-  const targetUrl = new URL(req.url, SUPABASE_URL);
+  // URL path ကို Supabase ဆီသို့ တိုက်ရိုက်ချိတ်ဆက်ရန်
+  const url = new URL(req.url, `https://${req.headers.host}`);
+  const targetUrl = new URL(url.pathname + url.search, SUPABASE_URL);
 
   try {
     const response = await fetch(targetUrl, {
